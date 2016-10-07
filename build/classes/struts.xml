@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.enable.DynamicMethodInvocation" 	value="false"/>
+	<constant name="struts.devMode" 						value="false" />
+	<!-- Référence au fichier de ressource -->
+	<!-- constant name="struts.custom.i18n.resources" 			value="ApplicationResources"/> -->
+	<constant name="struts.custom.i18n.resources" 			value="package"/>	
+
+	<package name="beanAction" extends="struts-default" namespace="/">
+		
+		<!-- Définition du listener associé à Tiles -->
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+		</result-types>		
+			
+		<!-- <action name="login" method="execute" class="beanAction.LoginAction"> -->
+		<action name="login" method="authentifierUtilisateurs" class="beanAction.UtilisateurAction">
+			<result name="input">ErrorInput.jsp</result>
+			<!-- action nommée login -->
+			<result name="success" type="tiles">/welcome.tiles</result>
+			<!-- action nommée accueil -->
+			<result name="error">Login.jsp</result>
+		</action>
+		
+		<action name="accueil">
+			<!-- action nommée accueil // appellé par ErrorInput.jsp dans tous les cas je renvoie vers Login-->
+			<result name="success">Login.jsp</result>
+		</action>	
+		
+		<action name="Welcome">
+			<result name="success" type="tiles">/welcome.tiles</result>
+		</action>	
+	
+		<action name="customer" class="beanAction.CustomerAction">
+			<result name="success" type="tiles">/customer.success.tiles</result>
+			<result name="input" type="tiles">/customer.tiles</result>
+		</action>
+		
+		<action name="customer-form">
+			<result name="success" type="tiles">/customer.tiles</result>
+		</action>
+	
+		<action name="supplier-form">
+			<result name="success" type="tiles">/supplier.tiles</result>
+		</action>	
+					
+	</package>
+
+
+</struts>
